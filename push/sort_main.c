@@ -24,7 +24,6 @@ t_info	split_atob(t_info info, int len)
 		while (cnt--)
 			info = rra(info);
 	}
-	//print_info(info);
 	return (info);
 }
 
@@ -48,11 +47,9 @@ t_info	sort_back_btoa(t_info info, int len)
 			else
 				info = rb(info);
 		}
-		//print_info(info);
 		info = sort_main(info, a_len);
 		info = sort_underfive_rrb_btoa(info, b_len);
 	}
-	//print_info(info);
 	return (info);
 }
 
@@ -72,11 +69,9 @@ t_info	sort_main(t_info info, int len)
 			info = sort_main(info, a_len);
 		else
 			info = sort_underfive_a(info, a_len);
-		//print_info(info);
 		info = sort_back_btoa(info, b_len);
 	}
 	else
 		info = sort_underfive_a(info, len);
-	//print_info(info);
 	return (info);
 }

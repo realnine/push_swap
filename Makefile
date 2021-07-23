@@ -1,5 +1,5 @@
 CC			= gcc
-CFLAGS		= -g -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra
 
 LIBFT_DIR	= ./libft/
 LIBGNL_DIR	= ./gnl/
@@ -24,8 +24,6 @@ PUSH_FILE 	= push_swap.c \
 			sort_basic_main_a.c \
 			sort_basic_main_b.c \
 			sort_main.c \
-			
-
 
 CHECK_FILE	= main_check.c \
 			ch_operations_a.c \
@@ -39,27 +37,19 @@ PUB_FILE 	= make_stack_a.c \
 			utils_search.c \
 			print_funcs.c \
 			quick_sort.c \
-			error_check.c
-
-PUSH_OBJS	= $(PUSH_FILE:%.c=%.o)
-CHECK_OBJS	= $(CHECK_FILE:%.c=%.o)
-PUB_OBJS	= $(PUB_FILE:%.c=%.o)
+			error_check.c \
+			print_error.c \
+			utils_tmp.c
 
 PUSH_SRCS	= $(addprefix $(PUSH_DIR), $(PUSH_FILE))
 CHECK_SRCS	= $(addprefix $(CHECK_DIR), $(CHECK_FILE))
 PUB_SRCS	= $(addprefix $(PUB_DIR), $(PUB_FILE))
 
-PUSH_SWAP_OBJS = $(PUSH_OBJS:%=$(OBJS_DIR)%) $(PUB_OBJS:%=$(OBJS_DIR)%)
-CHECKER_OBJS = $(CHECK_OBJS:%=$(OBJS_DIR)%) $(PUB_OBJS:%=$(OBJS_DIR)%)
-
 all: $(NAME) 
 
-$(OBJS_DIR): 
-	mkdir -p $(OBJS_DIR)
-
-$(NAME): make_lib make_obj
-	$(CC) $(CFLAGS) $(PUSH_SWAP_OBJS) $(LIBFT) -o $(PUSH_SWAP)
-	$(CC) $(CFLAGS) $(CHECKER_OBJS) $(LIBFT) $(LIBGNL) -o $(CHECKER)
+$(NAME): make_lib
+	$(CC) $(CFLAGS) $(PUSH_SRCS) $(PUB_SRCS) $(LIBFT) -o $(PUSH_SWAP)
+	$(CC) $(CFLAGS) $(CHECK_SRCS) $(PUB_SRCS) $(LIBFT) $(LIBGNL) -o $(CHECKER)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
@@ -71,24 +61,13 @@ $(LIBGNL):
 	make clean -C $(LIBGNL_DIR)
 	mv $(LIBGNL_DIR)$(LIBGNL) .
 
-$(PUSH_OBJS):
-	$(CC) $(CFLAGS) -c $(PUSH_DIR)$(@:.o=.c) -o $(OBJS_DIR)$@
-
-$(CHECK_OBJS):
-	$(CC) $(CFLAGS) -c $(CHECK_DIR)$(@:.o=.c) -o $(OBJS_DIR)$@
-
-$(PUB_OBJS):
-	$(CC) $(CFLAGS) -c $(PUB_DIR)$(@:.o=.c) -o $(OBJS_DIR)$@
-
 make_lib: $(LIBFT) $(LIBGNL)
-
-make_obj: $(OBJS_DIR) $(PUSH_OBJS) $(CHECK_OBJS) $(PUB_OBJS)
 
 clean:
 	rm -rf ./objs *.a
 
 fclean: clean
-	rm -f push_swap checker
+	rm -rf push_swap checker *.dSYM
 
 re: fclean all
 

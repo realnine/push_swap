@@ -5,6 +5,7 @@ int	push_swap(int argc, char **argv)
 	t_info	info;
 
 	info = init_info();
+	info.argv = argv;
 	if (error_check(argc, argv) == -1)
 		info.error = -1;
 	if (info.error == 0)
@@ -21,25 +22,27 @@ int	push_swap(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	int rtn;
+	int		i;
+	int		rtn;
+	char	*arg;
+	char	*arr;
+	char	*tmp;
 
 	if (argc <= 1)
 		return (0);
-	else if (argc == 2)
+	else if (argc >= 2)
 	{
-		argv = ft_split(argv[1], ' ');
-		if (!argv)
-			return (-1);
-		i = 0;
-		while (argv[i])
-			i++;
-		argc = i;
-	}
-	else if (argc > 2)
-	{
-		argv = &argv[1];
-		argc--;
+		arr = NULL;
+		i = 1;
+		while (i < argc)
+		{
+			arg = ft_strjoin(argv[i++], " ");
+			tmp = ft_strjoin(arr, arg);
+			arr = free_arg_arr(arg, arr, tmp);
+		}
+		argv = ft_split(arr, ' ');
+		argc = argv_len(argv);
+		free(tmp);
 	}
 	rtn = push_swap(argc, argv);
 	return (rtn);

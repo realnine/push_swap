@@ -32,6 +32,5 @@ t_info	sort_underfive_a(t_info info, int len)
 		info = sort_three_a(info);
 	if (len == 2)
 		info = sort_two_a(info);
-	//print_info(info);
 	return (info);
 }

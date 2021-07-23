@@ -56,6 +56,5 @@ t_info	sort_underfive_btoa(t_info info, int len)
 		info = sort_four_btoa(info, len);
 	else if (len == 5 && n >= 5)
 		info = sort_five_btoa(info, len);
-	//print_info(info);
 	return (info);
 }

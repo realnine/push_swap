@@ -1,8 +1,8 @@
 #include "../push_swap.h"
 
-t_stack *make_stacks_reverse_connect_node(t_stack *cur)
+t_stack	*make_stacks_reverse_connect_node(t_stack *cur)
 {
-	t_stack *nex;
+	t_stack	*nex;
 
 	while (cur->prev)
 	{
@@ -13,14 +13,15 @@ t_stack *make_stacks_reverse_connect_node(t_stack *cur)
 	return (cur);
 }
 
-t_info make_stacks_connect_node(int argc, char **argv)
+t_info	make_stacks_connect_node(int argc, char **argv)
 {
-	t_info info;
-	t_stack *cur;
-	t_stack *pre;
-	int i;
+	t_info	info;
+	t_stack	*cur;
+	t_stack	*pre;
+	int		i;
 
 	info = init_info();
+	info.argv = argv;
 	pre = NULL;
 	i = 0;
 	while (i < argc)

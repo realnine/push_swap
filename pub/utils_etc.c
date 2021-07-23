@@ -40,12 +40,23 @@ t_stack	*create_node(void)
 
 void	all_free(t_info info)
 {
+	int	i;
+
 	if (info.a)
 		stack_free(info.a);
 	if (info.b)
 		stack_free(info.b);
 	if (info.op)
 		free(info.op);
+	i = 0;
+	if (info.argv)
+	{
+		while (info.argv[i])
+		{
+			free(info.argv[i]);
+			i++;
+		}
+	}
 }
 
 t_info	init_info(void)
@@ -53,6 +64,7 @@ t_info	init_info(void)
 	t_info	info;
 
 	info.error = 0;
+	info.check = 0;
 	info.op = NULL;
 	info.a = NULL;
 	info.b = NULL;

@@ -22,31 +22,37 @@ int	check_is_digit(int argc, char **argv)
 	return (0);
 }
 
+int	error_rtn(int *arr)
+{
+	free(arr);
+	return (-1);
+}
+
 int	check_duplicate(int argc, char **argv)
 {
 	int	i;
 	int	j;
 	int	val;
-	int	arr[argc];
+	int	*arr;
 	int	index;
 
-	j = 0;
-	while (j < argc)
-		arr[j++] = 0;
+	arr = ft_calloc(sizeof(int), argc);
+	if (!arr)
+		return (-1);
 	i = 0;
 	index = 0;
 	while (i < argc)
 	{
-		val = ft_atoi(argv[i]);
+		val = ft_atoi(argv[i++]);
 		j = 0;
 		while (j < index)
 		{
 			if (arr[j++] == val)
-				return (-1);
+				return (error_rtn(arr));
 		}
 		arr[index++] = val;
-		i++;
 	}
+	free(arr);
 	return (0);
 }
 

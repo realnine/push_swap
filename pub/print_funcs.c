@@ -1,11 +1,5 @@
 #include "../push_swap.h"
 
-int	print_error(void)
-{
-	write(2, "Error\n", 6);
-	return (-1);
-}
-
 t_info	input_operations(t_info info, char *op)
 {
 	char	*tmp;
